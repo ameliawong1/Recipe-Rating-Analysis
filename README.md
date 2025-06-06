@@ -40,7 +40,7 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | `'review'`    | Review text         |
 
 ## Data Cleaning and Exploratory Data Analysis
-markdown | name                                 |   log_minutes |   n_ingredients |   ingredient_length |   calories |   avg_rating | has_description   |
+| name                                 |   log_minutes |   n_ingredients |   ingredient_length |   calories |   avg_rating | has_description   |
 |:-------------------------------------|--------------:|----------------:|--------------------:|-----------:|-------------:|:------------------|
 | 1 brownies in the world    best ever |       3.71357 |               9 |                 138 |      138.4 |            4 | True              |
 | 1 in canada chocolate chip cookies   |       3.82864 |              11 |                 111 |      595.1 |            5 | True              |
