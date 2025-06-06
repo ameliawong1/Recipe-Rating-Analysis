@@ -11,7 +11,6 @@ To answer my exploration question, I began by cleaning the data and engineering 
 By understanding whether nutrition impacts online ratings, we can gain insights into public health trends, taste preferences, and what kinds of recipes might be worth promoting more heavily on recipe platforms like Food.com.
 
 
-
 The following chart explains each of the 12 columns in the `RAW_recipes` dataset, which includes 83,782 rows that correspond to 83,782 recipes.
 
 | Column             | Description                                                                                                                                                                                       |
@@ -28,7 +27,6 @@ The following chart explains each of the 12 columns in the `RAW_recipes` dataset
 | `'description'`    | User-provided description                                                                                                                                                                         |
 | `'ingredients'`    | Text for recipe ingredients                                                                                                                                                                       |
 | `'n_ingredients'`  | Number of ingredients in recipe                                                                                                                                                                   |
-
 
 
 The following chart explains each of the 5 columns in the `interactions` dataset, which includes 731,927 rows that correspond to 731,927 reviews left on recipes.
