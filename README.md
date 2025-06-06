@@ -1,11 +1,12 @@
 # Recipe Ratings and Health: Does Nutrition Affect How We Rate?
 
-*By Amelia Wong*
+By Amelia Wong
 
 ## Introduction
 
-We all have different ideas about what makes a recipe great—taste, convenience, healthiness, or a mix of all three. But when people leave reviews online, what factors most influence those ratings? For my DSC 80 final project at UC San Diego, I explored whether the nutritional content of a recipe, like its protein, sugar, or calories, influences how well it's rated by users. I used a dataset from Food.com containing thousands of recipes and user reviews. My goal was to investigate the relationship between a recipe's healthiness and its average rating, and later, to build a model that could predict whether a recipe will be rated highly based on its nutritional profile.
+We all have different ideas about what makes a recipe great—taste, convenience, healthiness, or a mix of all three. But when people leave reviews online, what factors most influence those ratings? For my DSC 80 final project at UC San Diego, I explored whether the nutritional content of a recipe, like its protein, sugar, or calories, influences how well it's rated by users. I used two datasets from Food.com containing thousands of recipes and user ratings. My goal was to investigate the relationship between a recipe's healthiness and its average rating, and later, to build a model that could predict whether a recipe will be rated highly based on its nutritional profile.
 
+The following chart explains each of the 12 columns in the `RAW_recipes` dataset, which includes 83,782 rows that correspond to 83,782 recipes.
 
 | Column             | Description                                                                                                                                                                                       |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -22,6 +23,7 @@ We all have different ideas about what makes a recipe great—taste, convenience
 | `'ingredients'`    | Text for recipe ingredients                                                                                                                                                                       |
 | `'n_ingredients'`  | Number of ingredients in recipe                                                                                                                                                                   |
 
+The following chart explains each of the 5 columns in the `interactions` dataset, which includes 731,927 rows that correspond to 731,927 reviews left on recipes.
 
 | Column        | Description         |
 | :------------ | :------------------ |
