@@ -40,21 +40,21 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | `'review'`    | Review text         |
 
 ## Data Cleaning and Exploratory Data Analysis
-| name                                 |   log_minutes |   n_ingredients |   ingredient_length |   calories |   avg_rating | has_description   |
+<pre> ```markdown | name                                 |   log_minutes |   n_ingredients |   ingredient_length |   calories |   avg_rating | has_description   |
 |:-------------------------------------|--------------:|----------------:|--------------------:|-----------:|-------------:|:------------------|
 | 1 brownies in the world    best ever |       3.71357 |               9 |                 138 |      138.4 |            4 | True              |
 | 1 in canada chocolate chip cookies   |       3.82864 |              11 |                 111 |      595.1 |            5 | True              |
 | 412 broccoli casserole               |       3.71357 |               9 |                 129 |      194.8 |            5 | True              |
 | millionaire pound cake               |       4.79579 |               7 |                  76 |      878.3 |            5 | True              |
-| 2000 meatloaf                        |       4.51086 |              13 |                 179 |      267   |            5 | True              |
+| 2000 meatloaf                        |       4.51086 |              13 |                 179 |      267   |            5 | True              | ``` </pre>
 
-| cook_time_bin   |     mean |    median |   min |     max |
+<pre> ``` | cook_time_bin   |     mean |    median |   min |     max |
 |:----------------|---------:|----------:|------:|--------:|
 | 0–10            | 0.268152 | 0.172331  |     0 | 1.07898 |
 | 11–30           | 0.156582 | 0.0690901 |     0 | 1.07995 |
 | 31–60           | 0.151015 | 0.073364  |     0 | 1.03926 |
 | 61–120          | 0.168158 | 0.0886077 |     0 | 1.03097 |
-| 120+            | 0.159572 | 0.0747464 |     0 | 1.08049 |
+| 120+            | 0.159572 | 0.0747464 |     0 | 1.08049 | ``` </pre>
 
 ## Assessment of Missingness
 
