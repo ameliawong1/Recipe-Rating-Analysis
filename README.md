@@ -48,6 +48,8 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | millionaire pound cake               | 4.79579     | 7              | 76                | 878.3    | 5           | True            |
 | 2000 meatloaf                        | 4.51086     | 13             | 179               | 267      | 5           | True            |
 
+
+
 | cook_time_bin | mean     | median   | min | max     |
 |---------------|----------|----------|-----|---------|
 | 0–10          | 0.268152 | 0.172331 | 0   | 1.07898 |
@@ -55,6 +57,7 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | 31–60         | 0.151015 | 0.073364 | 0   | 1.03926 |
 | 61–120        | 0.168158 | 0.088607 | 0   | 1.03097 |
 | 120+          | 0.159572 | 0.074746 | 0   | 1.08049 |
+
 
 ## Assessment of Missingness
 
