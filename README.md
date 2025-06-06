@@ -6,7 +6,6 @@
 
 We all have different ideas about what makes a recipe great—taste, convenience, healthiness, or a mix of all three. But when people leave reviews online, what factors most influence those ratings? For my DSC 80 final project at UC San Diego, I explored whether the nutritional content of a recipe, like its protein, sugar, or calories, influences how well it's rated by users. I used a dataset from Food.com containing thousands of recipes and user reviews. My goal was to investigate the relationship between a recipe's healthiness and its average rating, and later, to build a model that could predict whether a recipe will be rated highly based on its nutritional profile.
 
-The first dataset, `recipe`, contains 83782 rows, indicating 83782 unique recipes, with 10 columns recording the following information:
 
 | Column             | Description                                                                                                                                                                                       |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -23,7 +22,6 @@ The first dataset, `recipe`, contains 83782 rows, indicating 83782 unique recipe
 | `'ingredients'`    | Text for recipe ingredients                                                                                                                                                                       |
 | `'n_ingredients'`  | Number of ingredients in recipe                                                                                                                                                                   |
 
-The second dataset, `interactions`, contains 731927 rows and each row contains a review from the user on a specific recipe. The columns it includes are:
 
 | Column        | Description         |
 | :------------ | :------------------ |
