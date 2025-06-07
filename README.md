@@ -90,7 +90,7 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 ## Assessment of Missingness
  
 <iframe
-  src="assets/description-ingredient-missingness.html"
+  src="assets/description-ingredient-missingness.html?v=2"
   width="800"
   height="600"
   frameborder="0"
@@ -121,7 +121,7 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 ## Hypothesis Testing
  
 <iframe
-  src="assets/healthiness-rating-permutation.html"
+  src="assets/healthiness-rating-permutation.html?v=2"
   width="800"
   height="600"
   frameborder="0"
