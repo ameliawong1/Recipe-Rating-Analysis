@@ -48,14 +48,15 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | 412 broccoli casserole               | 3.71357     | 9              | 129               | 194.8    | 5           | True            |
 | millionaire pound cake               | 4.79579     | 7              | 76                | 878.3    | 5           | True            |
 | 2000 meatloaf                        | 4.51086     | 13             | 179               | 267      | 5           | True            |
- 
+
+stuff 
 <iframe
   src="assets/log-recipe-duration-distribution.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
- 
+stuff
 <iframe
   src="assets/ingredients-per-recipe.html"
   width="800"
