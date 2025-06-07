@@ -164,7 +164,23 @@ This suggested that simpler, less caloric recipes were more likely to not have a
 
 **Permutation Test**
 
-To assess whether these differences were statistically significant, I ran permutation tests.
+<iframe
+  src="assets/ingredients-by-missingness-bar.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+I observed that recipes with missing descriptions tended to have fewer ingredients on average. This makes sense: simpler recipes may require fewer instructions or narrative context, so users might choose not to write anything.
+
+<iframe
+  src="assets/calories-by-missingness-bar.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+Similarly, recipes with missing descriptions also had lower average calories. This supports the idea that simpler, low-effort recipes are less likely to include descriptions.
+
+To test the statistical significance of these patterns, I ran permutation tests.
 
 <iframe
   src="assets/description-ingredient-missingness.html?v=2"
@@ -173,33 +189,20 @@ To assess whether these differences were statistically significant, I ran permut
   frameborder="0"
 ></iframe>
 
-I tested whether the number of ingredients differed significantly between recipes with and without missing descriptions. The observed difference (about -1.4 ingredients) was extreme relative to the null distribution, giving a low p-value.
+I tested whether the number of ingredients differed significantly between recipes with and without missing descriptions. I permuted the description_missing column 1000 times and recorded the difference in mean number of ingredients between the groups. The observed difference (about -1.4 ingredients) was extreme relative to the null distribution, giving a low p-value.
  
-<iframe
-  src="assets/ingredients-by-missingness-bar.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
- 
+
+
 <iframe
   src="assets/description-calorie-missingness.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
-A similar test was run for calorie count. Again, the observed difference lay in the tail of the null distribution.
+I repeated the same steps using the calories column. Again, I observed a significant difference, with the actual test statistic in the extreme end of the null distribution.
  
-<iframe
-  src="assets/calories-by-missingness-bar.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
 
-**Conclusion**: These results confirm that missingness in the description column is related to observed features like calories and ingredient count. This suggests that while the data may be NMAR in theory, it behaves like **MAR (Missing At Random)** in practice.
-
+**Conclusion**: Since the missingness in description correlates with observed variables (ingredients and calories) but not unobserved variables, we conclude that the mechanism is **Missing At Random (MAR)**.
 
 
 
