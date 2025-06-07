@@ -189,7 +189,11 @@ To test the statistical significance of these patterns, I ran permutation tests.
   frameborder="0"
 ></iframe>
 
-I tested whether the number of ingredients differed significantly between recipes with and without missing descriptions. I permuted the description_missing column 1000 times and recorded the difference in mean number of ingredients between the groups. The observed difference (about -1.4 ingredients) was extreme relative to the null distribution, giving a low p-value.
+I tested whether the number of ingredients differed significantly between recipes with and without missing descriptions. I permuted the description_missing column 1000 times and recorded the difference in mean number of ingredients between the groups. The observed difference (about -1.4 ingredients) was extreme relative to the null distribution, giving a low p-value. This means that we reject the null hypothesis.
+
+**Null Hypothesis**: There is no difference in the average number of ingredients between recipes with and without a description. Any observed difference is due to random chance.
+
+**Alternative Hypothesis**: There is a difference in the average number of ingredients between recipes with and without a description.
  
 
 
@@ -200,6 +204,10 @@ I tested whether the number of ingredients differed significantly between recipe
   frameborder="0"
 ></iframe>
 I repeated the same steps using the calories column. Again, I observed a significant difference, with the actual test statistic in the extreme end of the null distribution.
+
+**Null Hypothesis**: There is no difference in average calories between recipes with and without a description. Any difference is due to random chance.
+
+**Alternative Hypothesis**: There is a difference in average calories between recipes with and without a description.
  
 
 **Conclusion**: Since the missingness in description correlates with observed variables (ingredients and calories) but not unobserved variables, we conclude that the mechanism is **Missing At Random (MAR)**.
@@ -241,12 +249,83 @@ I obtained a **p-value < 0.05**, meaning the observed difference is unlikely to 
 
 ## Framing a Prediction Problem
 
+The goal of my prediction task is to predict whether a recipe belongs to the top 10% of average ratings. This is a **binary classification** problem. I defined a new column, `top_10_percent`, which is `True` if the recipe’s average rating is in the top 10% of all ratings, and `False` otherwise.
+
+I chose this prediction target because it allows me to focus on identifying the most successful recipes on the platform—those with consistently high user approval. This classification task is practical: it enables users to reach highly rated recipes based only on their characteristics without needing to wait for user feedback.
+
+The evaluation metric I used is **accuracy**, since both classes are relatively balanced after the thresholding, and because I want the model to correctly classify recipes as top or not top-rated. I use a train-test split to evaluate how well the model generalizes to unseen data.
+
 
 ## Baseline Model
 
+The baseline model uses only two simple features: `log_minutes` and `n_ingredients`. I chose these featurs because of their simplicity and because they don't require any advanced processing or domain knowledge.
+
+I implemented a pipeline with the following components:
+
+- Standard scaling of the features
+
+- Logistic regression with default parameters (max_iter=500)
+
+After training the model on 80% of the data and evaluating on the remaining 20%, I obtained a test accuracy of **0.566**.
+
+This model serves as a baseline for comparison with the final model. While the performance is only slightly better than chance, this is expected due to the simplicity of the features used. Still, it provides a useful reference point for evaluating improvements.
 
 ## Final Model
 
+I built a more sophisticated model using the following features:
+
+- `log_minutes`: total cooking time (log-transformed)
+
+- `n_ingredients`: number of ingredients
+
+- `calories`, `protein`, `sugar`, `sat_fat`: nutrition values from the dataset
+
+- `ingredient_length`: character count of the ingredients string
+
+- `has_description`: whether the recipe includes a written description
+
+- `protein_per_calorie`: a derived metric for protein density
+
+Categorical columns such as `has_description` were converted to numeric (0 or 1). I dropped rows with missing values in any of the included features.
+
+I used a random forest classifier with `n_estimators=100` and `max_depth=10`. These hyperparameters were selected to control overfitting while allowing the model to capture complex interactions.
+
+After training and evaluating on the same train-test split, the final model achieved an accuracy of **0.570**, a slight improvement over the baseline model.
+
+While the performance gain is small, this increase is meaningful given the limited set of input features and class balance. Additional feature engineering or hyperparameter tuning could yield further improvements.
 
 ## Fairness Analysis
+
+To assess fairness, I examined whether the model performs equally well across different subgroups. Specifically, I split the test data into two groups based on the number of ingredients:
+
+- **Low Ingredient Group**: Recipes with a number of ingredients less than or equal to the median
+
+- **High Ingredient Group**: Recipes with more than the median number of ingredients
+
+I chose to evaluate **precision** as the fairness metric, as I care about how many predicted top-rated recipes in each group are actually top-rated.
+
+I then computed:
+
+- Precision in the low ingredient group
+
+- Precision in the high ingredient group
+
+- Difference in precision (high-low)
+
+I performed a permutation test to determine if the observed difference in precision was statistically significant.
+
+- **Null Hypothesis**: The model’s precision is the same for both groups; any observed difference is due to chance
+
+- **Alternative Hypothesis**: The model’s precision is different between the groups
+
+- **Test Statistic**: Difference in precision (high - low)
+
+- **Significance Level**: 0.05
+
+The observed difference in precision was **-0.0042**, and the permutation test yielded a **p-value of 0.6880**.
+
+Since the p-value is much larger than the significance level, we fail to reject the null hypothesis. We conclude that the model does not show statistically significant precision disparity based on number of ingredients.
+
+This result supports the fairness of the model across this feature division.
+
 
