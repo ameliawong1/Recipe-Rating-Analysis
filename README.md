@@ -242,7 +242,7 @@ This approach is appropriate because I'm testing the association between two col
   height="600"
   frameborder="0"
 ></iframe>
-The histogram shows the empirical null distribution from our permutations, with the observed statistic marked as a vertical red line. The red line falls in the tail of the distribution.
+The histogram shows the empirical null distribution from the permutations, with the observed statistic marked as a vertical red line. The red line falls in the tail of the distribution.
 
 I obtained a **p-value < 0.05**, meaning the observed difference is unlikely to have occurred by random chance alone. Thus, we reject the null hypothesis and conclude that recipe healthiness is associated with a significant difference in average user ratings.
 
