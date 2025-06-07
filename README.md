@@ -80,8 +80,7 @@ After creating the new features, I removed rows with malformed or missing values
 | 2000 meatloaf                        | 4.51086     | 13             | 179               | 267      | 5           | True            |
 
 
-### Initial Visualizations
-To better understand the structure of our cleaned dataset, I created a few basic visualizations:
+### Univariate Analysis
 
 <iframe
   src="assets/log-recipe-duration-dist.html"
@@ -100,6 +99,7 @@ This histogram shows the distribution of `log_minutes`. Most recipes fall betwee
 ></iframe>
 This plot illustrates the distribution of `n_ingredients`. The majority of recipes use between 5 and 15 ingredients, with a peak around 10, suggesting most users prefer moderately complex recipes.
 
+### Bivariate Analysis
 
 <iframe
   src="assets/rating-vs-ingredients.html"
@@ -137,13 +137,43 @@ This visualization clearly shows that recipes in the 0–10 minute bin have the 
 These findings are helpful not only for dietary analysis but also for feature selection in downstream modeling.
 
 ## Assessment of Missingness
- 
+
+### NMAR Analysis
+
+One column in the dataset with substantial missing values is the description column, which contains short blurbs that introduce or summarize the recipe. I wanted to determine if the missingness of this column followed a particular pattern.
+
+On Food.com, a description is an optional field when users upload recipes. This makes it likely that the choice to not enter a description is related to unobserved user characteristics like laziness or inexperience. Since these traits are not included as variables in the dataset, I can't use the observed data to fully explain the missingness.
+
+Because of this, I believe the description column is **Not Missing At Random (NMAR)**. That is, the probability of a description being missing is likely related to something unmeasured, such as the user's writing habits or willingness to promote their recipe, and not just to any of the recipe’s measurable features.
+
+### Missingness Dependency
+
+Although I concluded the missingness of the description column is likely NMAR, I also tested how its missingness correlated with other columns.
+
+To do this, I created a Boolean column `description_missing`, which was `True` if the description was missing and `False` otherwise. I then explored how this column interacted with other variables.
+
+**Grouped Analysis**
+
+I grouped by `description_missing` and computed the average number of ingredients and average calories.
+
+- Recipes with missing descriptions tended to have **fewer ingredients**.
+
+- Recipes with missing descriptions also had **lower calorie counts**.
+
+This suggested that simpler, less caloric recipes were more likely to not have a description.
+
+**Permutation Test**
+
+To assess whether these differences were statistically significant, I ran permutation tests.
+
 <iframe
   src="assets/description-ingredient-missingness.html?v=2"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+I tested whether the number of ingredients differed significantly between recipes with and without missing descriptions. The observed difference (about -1.4 ingredients) was extreme relative to the null distribution, giving a low p-value.
  
 <iframe
   src="assets/ingredients-by-missingness-bar.html"
@@ -158,6 +188,8 @@ These findings are helpful not only for dietary analysis but also for feature se
   height="600"
   frameborder="0"
 ></iframe>
+
+A similar test was run for calorie count. Again, the observed difference lay in the tail of the null distribution.
  
 <iframe
   src="assets/calories-by-missingness-bar.html"
@@ -165,6 +197,10 @@ These findings are helpful not only for dietary analysis but also for feature se
   height="600"
   frameborder="0"
 ></iframe>
+
+**Conclusion**: These results confirm that missingness in the description column is related to observed features like calories and ingredient count. This suggests that while the data may be NMAR in theory, it behaves like **MAR (Missing At Random)** in practice.
+
+
 
 
 ## Hypothesis Testing
