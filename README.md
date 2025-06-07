@@ -49,17 +49,27 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | millionaire pound cake               | 4.79579     | 7              | 76                | 878.3    | 5           | True            |
 | 2000 meatloaf                        | 4.51086     | 13             | 179               | 267      | 5           | True            |
 
-plot:
- 
+
 <iframe
   src="assets/log-recipe-duration-dist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
- 
-explanation
 
+<iframe
+  src="assets/ingredients-per-recipe.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/rating-vs-ingredients.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 | cook_time_bin | mean     | median   | min | max     |
