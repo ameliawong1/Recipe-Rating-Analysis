@@ -65,7 +65,7 @@ These columns also stored list-like data as strings. I converted them into actua
 
 **3. Handling the `minutes` Column**
 
-I found that cooking durations ( `minutes` ) were heavily right-skewed. To address this, I logtransformed the values using `log_minutes = log(minutes + 1)` to reduce the effect of extreme outliers and improve interpretability.
+I found that cooking times ( `minutes` ) were heavily right-skewed. To address this, I logtransformed the values using `log_minutes = log(minutes + 1)` to reduce the effect of extreme outliers and improve interpretability.
 
 ### Finalizing the Cleaned Dataset
 After creating the new features, I removed rows with malformed or missing values in critical columns like `nutrition`, `ingredients`, or `steps`. This left a clean dataset, `recipes_cleaned`, which I used for all subsequent steps. The table below shows the first few rows of `recipes_cleaned` with some relevant columns selected.
@@ -107,7 +107,7 @@ This plot illustrates the distribution of `n_ingredients`. The majority of recip
   height="600"
   frameborder="0"
 ></iframe>
-Here, I plotted the average rating by number of ingredients. Ratings increase steadily up to about 14 ingredients before leveling off. This suggests users appreciate recipes that are more involved—but only up to a point.
+Here, I plotted the average rating by number of ingredients. Ratings increase steadily up to about 14 ingredients before leveling off. This suggests users appreciate recipes that are more involved, but only up to a certain point.
 
 These insights helped shape the directions of my hypothesis and aggregate analyses.
 
@@ -134,7 +134,7 @@ These statistics suggest that the shortest recipes (0–10 minutes) tend to have
 
 This visualization clearly shows that recipes in the 0–10 minute bin have the highest average proportion of sugar, while other bins remain relatively low and flat. This supports the idea that quick recipes often contain high sugar content.
 
-These findings are helpful not only for dietary analysis but also for feature selection in downstream modeling.
+These findings are helpful not only for nutritional analysis but also for feature selection in later modeling.
 
 ## Assessment of Missingness
 
@@ -150,7 +150,7 @@ Because of this, I believe the description column is **Not Missing At Random (NM
 
 Although I concluded the missingness of the description column is likely NMAR, I also tested how its missingness correlated with other columns.
 
-To do this, I created a Boolean column `description_missing`, which was CTrue` if the description was missing and `False` otherwise. I then explored how this column interacted with other variables.
+To do this, I created a Boolean column `description_missing`, which was `True` if the description was missing and `False` otherwise. I then explored how this column interacted with other variables.
 
 **Grouped Analysis**
 
@@ -170,7 +170,7 @@ This suggested that simpler, less caloric recipes were more likely to not have a
   height="600"
   frameborder="0"
 ></iframe>
-I observed that recipes with missing descriptions tended to have fewer ingredients on average. This makes sense: simpler recipes may require fewer instructions or narrative context, so users might choose not to write anything.
+I observed that recipes with missing descriptions tended to have fewer ingredients on average. This makes sense: simpler recipes may require fewer instructions or  context, so users might choose not to write anything.
 
 <iframe
   src="assets/calories-by-missingness-bar.html"
@@ -258,7 +258,7 @@ The evaluation metric I used is **accuracy**, since both classes are relatively 
 
 ## Baseline Model
 
-The baseline model uses only two simple features: `log_minutes` and `n_ingredients`. I chose these featurs because of their simplicity and because they don't require any advanced processing or domain knowledge.
+The baseline model uses only two simple features: `log_minutes` (interval) and `n_ingredients` (interval). I chose these featurs because of their simplicity and because they don't require any advanced processing or domain knowledge.
 
 I implemented a pipeline with the following components:
 
@@ -292,7 +292,16 @@ I used a random forest classifier with `n_estimators=100` and `max_depth=10`. Th
 
 After training and evaluating on the same train-test split, the final model achieved an accuracy of **0.570**, a slight improvement over the baseline model.
 
-While the performance gain is small, this increase is meaningful given the limited set of input features and class balance. Additional feature engineering or hyperparameter tuning could yield further improvements.
+### Why These Features Helped
+
+Each feature was chosen based on prior data exploration and reasoning about the data generating process:
+
+- `calories`, `sugar`, `protein`, and `sat_fat` reflect nutritional composition. I already observed that sugar and healthiness impact ratings, so including these values gives the model more insight into user preference patterns.
+- `ingredient_length` captures the wordiness and complexity of the ingredient list, which might reflect a recipe's elaborateness or appeal.
+- `has_description` was shown in Step 3 to correlate with higher ingredient count and calorie content, which may align with more engaging or richer recipes.
+- `protein_per_calorie` expresses nutrient density and acts as a indicator for healthy, high-quality recipes. I designed this based on earlier analysis where we defined healthiness using similar variables.
+
+Altogether, these features help the model account for both the nutritional and structural aspects of recipes. While the performance gain is small, the improvements reflect a more thoughtful representation of what makes a recipe well-rated from both a user and health perspective. Additional feature engineering or hyperparameter tuning could yield further improvements.
 
 ## Fairness Analysis
 
