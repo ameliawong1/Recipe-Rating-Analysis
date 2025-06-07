@@ -150,7 +150,7 @@ Because of this, I believe the description column is **Not Missing At Random (NM
 
 Although I concluded the missingness of the description column is likely NMAR, I also tested how its missingness correlated with other columns.
 
-To do this, I created a Boolean column `description_missing`, which was `True` if the description was missing and `False` otherwise. I then explored how this column interacted with other variables.
+To do this, I created a Boolean column `description_missing`, which was CTrue` if the description was missing and `False` otherwise. I then explored how this column interacted with other variables.
 
 **Grouped Analysis**
 
@@ -207,13 +207,36 @@ I repeated the same steps using the calories column. Again, I observed a signifi
 
 
 ## Hypothesis Testing
- 
+
+I performed a permutation test to evaluate whether recipe healthiness is associated with user ratings.
+
+**Null Hypothesis**: There is no difference in the average rating between healthy and unhealthy recipes. Any difference is due to random chance.
+
+**Alternative Hypothesis**: There is a difference in the average rating between healthy and unhealthy recipes.
+
+**Test Statistic**: Difference in mean average rating between the healthy and unhealthy groups (healthy − unhealthy).
+
+**Significance Level**: 0.05
+
+This is a two-sided test, as I didn't know from the start whether healthy or unhealthy recipes would be rated higher.
+
+To test this, I first defined a `health_score` metric using the formula: `health_score = protein - sugar - saturated fat`
+
+I then split recipes into healthy and unhealthy groups based on whether their health score was above or below the median.
+
+To simulate what differences we might expect under the null hypothesis, I shuffled the group labels (`is_healthy`) and recomputed the difference in average ratings 1000 times. This permutation test allows us to build a distribution of differences that could arise by random assignment.
+
+This approach is appropriate because I'm testing the association between two columns (`is_healthy` and `avg_rating`) without assuming any parametric model. Permutation testing is a robust, assumption-free method for significance testing in this case.
+
 <iframe
   src="assets/healthiness-rating-permutation.html?v=2"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+The histogram shows the empirical null distribution from our permutations, with the observed statistic marked as a vertical red line. The red line falls in the tail of the distribution.
+
+I obtained a **p-value < 0.05**, meaning the observed difference is unlikely to have occurred by random chance alone. Thus, we reject the null hypothesis and conclude that recipe healthiness is associated with a significant difference in average user ratings.
 
 
 ## Framing a Prediction Problem
