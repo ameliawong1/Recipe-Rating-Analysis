@@ -49,7 +49,27 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | millionaire pound cake               | 4.79579     | 7              | 76                | 878.3    | 5           | True            |
 | 2000 meatloaf                        | 4.51086     | 13             | 179               | 267      | 5           | True            |
 
-stuff
+<iframe
+  src="assets/log-recipe-duration-distribution.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/ingredients-per-recipe.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/rating-vs-ingredients.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 
 | cook_time_bin | mean     | median   | min | max     |
 |---------------|----------|----------|-----|---------|
@@ -59,11 +79,52 @@ stuff
 | 61–120        | 0.168158 | 0.088607 | 0   | 1.03097 |
 | 120+          | 0.159572 | 0.074746 | 0   | 1.08049 |
 
+<iframe
+  src="assets/prop-sugar-by-cook-time-bin.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 ## Assessment of Missingness
 
+<iframe
+  src="assets/description-ingredient-missingness.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/ingredients-by-missingness-bar.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/description-calorie-missingness.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/calories-by-missingness-bar.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 
 ## Hypothesis Testing
+
+<iframe
+  src="assets/healthiness-rating-permutation.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 ## Framing a Prediction Problem
