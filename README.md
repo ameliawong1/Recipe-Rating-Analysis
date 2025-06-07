@@ -40,6 +40,28 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | `'review'`    | Review text         |
 
 ## Data Cleaning and Exploratory Data Analysis
+### Cleaning and Feature Engineering
+I began with the `RAW_recipes` dataset, which contained 83,782 recipes and 12 columns. Several of these columns contained improperly formatted or missing data. Below are the major preprocessing and cleaning tasks I performed:
+1. Parsing the `nutrition` Column
+Each entry in the `nutrition` column is a string representation of a list of seven values: calories, total fat, sugar, sodium, protein, saturated fat, and carbohydrates. I used `ast.literal_eval` to convert this string into a Python list. From this list, I extracted the following:
+- `calories` : total caloric content
+- `sugar` : total grams of sugar
+- `protein` : total grams of protein
+- `sat_fat` : total grams of saturated fat
+These features were selected to help construct a simplified health metric later in the project.
+
+2. Parsing the `steps` and `ingredients` Columns
+These columns also stored list-like data as strings. I converted them into actual Python lists and used them to derive the following features:
+- `n_steps` : the number of steps in the cooking procedure
+- `n_ingredients` : the number of ingredients in each recipe
+- `ingredient_length` : the character length of the original ingredients string (used to approximate complexity)
+
+3. Handling the `minutes` Column
+I found that cooking durations ( `minutes` ) were heavily right-skewed. To address this, I logtransformed the values using `log_minutes = log(minutes + 1)` to reduce the effect of extreme outliers and improve interpretability.
+
+### Finalizing the Cleaned Dataset
+After creating the new features, I removed rows with malformed or missing values in critical columns like `nutrition`, `ingredients`, or `steps`. This left a clean dataset, `recipes_cleaned`, which I used for all subsequent steps. The table below shows the first few rows of `recipes_cleaned` with some relevant columns selected.
+
  
 | name                                 | log_minutes | n_ingredients | ingredient_length | calories | avg_rating | has_description |
 |--------------------------------------|-------------|----------------|-------------------|----------|-------------|-----------------|
@@ -50,12 +72,18 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 | 2000 meatloaf                        | 4.51086     | 13             | 179               | 267      | 5           | True            |
 
 
+### Initial Visualizations
+To better understand the structure of our cleaned dataset, I created a few basic visualizations:
+
 <iframe
   src="assets/log-recipe-duration-dist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+This histogram shows the distribution of `log_minutes`. Most recipes fall between log-minutes 2 and 6 (roughly 7 to 400 minutes), indicating a wide but interpretable range of durations.
+
 
 <iframe
   src="assets/ingredients-per-recipe.html"
@@ -64,6 +92,9 @@ The following chart explains each of the 5 columns in the `interactions` dataset
   frameborder="0"
 ></iframe>
 
+This plot illustrates the distribution of `n_ingredients`. The majority of recipes use between 5 and 15 ingredients, with a peak around 10, suggesting most users prefer moderately complex recipes.
+
+
 <iframe
   src="assets/rating-vs-ingredients.html"
   width="800"
@@ -71,6 +102,11 @@ The following chart explains each of the 5 columns in the `interactions` dataset
   frameborder="0"
 ></iframe>
 
+Here, I plotted the average rating by number of ingredients. Ratings increase steadily up to about 14 ingredients before leveling off. This suggests users appreciate recipes that are more involved—but only up to a point.
+
+These insights helped shape the directions of our hypothesis and aggregate analyses.
+
+### Interesting Aggregations
 
 | cook_time_bin | mean     | median   | min | max     |
 |---------------|----------|----------|-----|---------|
