@@ -44,7 +44,7 @@ The following chart explains each of the 5 columns in the `interactions` dataset
 
 I began with the `RAW_recipes` dataset, which contained 83,782 recipes and 12 columns. Several of these columns contained improperly formatted or missing data. Below are the major preprocessing and cleaning tasks I performed:
 
-1. Parsing the `nutrition` Column
+**1. Parsing the `nutrition` Column**
 
 Each entry in the `nutrition` column is a string representation of a list of seven values: calories, total fat, sugar, sodium, protein, saturated fat, and carbohydrates. I used `ast.literal_eval` to convert this string into a Python list. From this list, I extracted the following:
 
@@ -55,7 +55,7 @@ Each entry in the `nutrition` column is a string representation of a list of sev
 
 These features were selected to help construct a simplified health metric later in the project.
 
-2. Parsing the `steps` and `ingredients` Columns
+**2. Parsing the `steps` and `ingredients` Columns**
 
 These columns also stored list-like data as strings. I converted them into actual Python lists and used them to derive the following features:
 
@@ -63,7 +63,7 @@ These columns also stored list-like data as strings. I converted them into actua
 - `n_ingredients` : the number of ingredients in each recipe
 - `ingredient_length` : the character length of the original ingredients string (used to approximate complexity)
 
-3. Handling the `minutes` Column
+**3. Handling the `minutes` Column**
 
 I found that cooking durations ( `minutes` ) were heavily right-skewed. To address this, I logtransformed the values using `log_minutes = log(minutes + 1)` to reduce the effect of extreme outliers and improve interpretability.
 
